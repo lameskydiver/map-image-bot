@@ -16,8 +16,11 @@ intents.message_content = True
 client = discord.Client(intents=intents)
 tree = app_commands.CommandTree(client)
 
+guild_id = 0        #your guild id here
+dev_channel_id = 0  #id of a channel within your guild that is not used for map tracking
+
 #Bot command to record map tracking data from a given date and time input
-@tree.command(name = "record", description = "Records maps played from a certain date and time", guild=discord.Object(id=784048138918166558))
+@tree.command(name = "record", description = "Records maps played from a certain date and time", guild=discord.Object(id=guild_id))
 @app_commands.describe(timestamp_start="The starting date and time in form at of YYYY-MM-DD HH:MM (set at UTC+0)")
 @app_commands.describe(timestamp_end="The ending date and time in form at of YYYY-MM-DD HH:MM (set at UTC+0)")
 @app_commands.describe(save_csv="Save (or append) data to a csv file of the channel server name: y for yes n for no")
@@ -25,11 +28,11 @@ async def record(interaction, timestamp_start: str, timestamp_end: str, save_csv
     await mapimg.recordMapTrackEmbed(interaction, timestamp_start, timestamp_end, save_csv)
 
 #Bot command to find map tracks with missing images
-@tree.command(name = "findinvalidmapimg", description = "With a given .csv name finds maps that do not have a valid map image", guild=discord.Object(id=784048138918166558))
+@tree.command(name = "findinvalidmapimg", description = "With a given .csv name finds maps that do not have a valid map image", guild=discord.Object(id=guild_id))
 @app_commands.describe(csv_name="Name of the .csv file (type 'all' for all currently tracked servers in this discord)")
 async def findinvalidmapimg(interaction, csv_name: str=None):
     if(interaction.channel.name != 'dev'):
-        await interaction.response.send_message(content='Please use this command in the <#1061776942631751701> channel!')
+        await interaction.response.send_message(content='Please use this command in the <#'+dev_channel_id+'> channel!')
         return
     data = []
     if(csv_name==None):
@@ -46,66 +49,66 @@ async def findinvalidmapimg(interaction, csv_name: str=None):
         await interaction.edit_original_response(content="Succesfully found all maps with a missing image for "+csv_name+".")
 
 #Bot command to display stats of a server
-@tree.command(name = "statsserver", description = "Display map statistics of a given server", guild=discord.Object(id=784048138918166558))
+@tree.command(name = "statsserver", description = "Display map statistics of a given server", guild=discord.Object(id=guild_id))
 @app_commands.describe(server_name="Name of server to get statistics for")
 async def statsserver(interaction, server_name: str):
     if(interaction.channel.name != 'dev'):
-        await interaction.response.send_message(content='Please use this command in the <#1061776942631751701> channel!')
+        await interaction.response.send_message(content='Please use this command in the <#'+dev_channel_id+'> channel!')
         return
     await interaction.response.send_message("Displaying statistics of "+server_name+"...")
     await serverstats.calculateServerStat(interaction, server_name)
 
 #Bot command to reorganise serverstats csv by longest duration
-@tree.command(name = "statsserverduration", description = "Display map statistics of a given server by the longest played duration", guild=discord.Object(id=784048138918166558))
+@tree.command(name = "statsserverduration", description = "Display map statistics of a given server by the longest played duration", guild=discord.Object(id=guild_id))
 @app_commands.describe(server_name="Name of server (serverstats_<name>.csv file must exist!)")
 async def statsserverduration(interaction, server_name: str):
     if(interaction.channel.name != 'dev'):
-        await interaction.response.send_message(content='Please use this command in the <#1061776942631751701> channel!')
+        await interaction.response.send_message(content='Please use this command in the <#'+dev_channel_id+'> channel!')
         return
     await interaction.response.send_message("Displaying statistics of "+server_name+" by the longest duration...")
     await serverstats.calculateServerMapStatLongestDuration(interaction, server_name)
 
 #Bot command to reorganise serverstats csv by most sessions
-@tree.command(name = "statsserversessions", description = "Display map statistics of a given server by the most sessions played", guild=discord.Object(id=784048138918166558))
+@tree.command(name = "statsserversessions", description = "Display map statistics of a given server by the most sessions played", guild=discord.Object(id=guild_id))
 @app_commands.describe(server_name="Name of server (serverstats_<name>.csv file must exist!)")
 async def statsserversessions(interaction, server_name: str):
     if(interaction.channel.name != 'dev'):
-        await interaction.response.send_message(content='Please use this command in the <#1061776942631751701> channel!')
+        await interaction.response.send_message(content='Please use this command in the <#'+dev_channel_id+'> channel!')
         return
     await interaction.response.send_message("Displaying statistics of "+server_name+" by most sessions played...")
     await serverstats.calculateServerMapStatMostSessions(interaction, server_name)
 
 #Bot command to display stats of a specific map on a server
-@tree.command(name = "statsservermap", description = "Display statistics of a specific map on a given server", guild=discord.Object(id=784048138918166558))
+@tree.command(name = "statsservermap", description = "Display statistics of a specific map on a given server", guild=discord.Object(id=guild_id))
 @app_commands.describe(server_name="Name of server to get statistics for")
 @app_commands.describe(map_name="Name of map to get statistics for")
 async def statsservermap(interaction, server_name: str, map_name: str):
     if(interaction.channel.name != 'dev'):
-        await interaction.response.send_message(content='Please use this command in the <#1061776942631751701> channel!')
+        await interaction.response.send_message(content='Please use this command in the <#'+dev_channel_id+'> channel!')
         return
     await interaction.response.send_message("Displaying statistics of "+map_name+" on "+server_name+"...")
     await serverstats.calculateServerMapStat(interaction, server_name, map_name)
 
 #Bot command to check the length of a map name
-@tree.command(name = "checkmapnamelength", description = "Display statistics of a specific map on a given server", guild=discord.Object(id=784048138918166558))
+@tree.command(name = "checkmapnamelength", description = "Display statistics of a specific map on a given server", guild=discord.Object(id=guild_id))
 @app_commands.describe(map_name="Name of the map")
 async def checkmapnamelength(interaction, map_name: str):
     if(interaction.channel.name != 'dev'):
-        await interaction.response.send_message(content='Please use this command in the <#1061776942631751701> channel!')
+        await interaction.response.send_message(content='Please use this command in the <#'+dev_channel_id+'> channel!')
         return
     await formatting.checkCharLimit(interaction, map_name)
 
 #Bot command to test map images
-@tree.command(name = "testmapimages", description = "Test map images (only in .jpg format) in embed format found under /testimg/ folder directory", guild=discord.Object(id=784048138918166558))
+@tree.command(name = "testmapimages", description = "Test map images (only in .jpg format) in embed format found under /testimg/ folder directory", guild=discord.Object(id=guild_id))
 @app_commands.describe(map_name="Name of the map without any end suffixes")
 async def testmapimages(interaction, map_name: str=None):
     if(interaction.channel.name != 'dev'):
-        await interaction.response.send_message(content='Please use this command in the <#1061776942631751701> channel!')
+        await interaction.response.send_message(content='Please use this command in the <#'+dev_channel_id+'> channel!')
         return
     await mapimg.testMapImages(interaction, map_name)
 
 #Bot command to choose random guns
-@tree.command(name = "randomgun", description = "choose random guns", guild=discord.Object(id=784048138918166558))
+@tree.command(name = "randomgun", description = "choose random guns", guild=discord.Object(id=guild_id))
 async def randomgun(interaction):
     prim = ["MP9", "MAC-10", "PP-Bizon", "MP7", "MP5-SD", "UMP-45", "P90", "FAMAS", "Galil AR", "M4A4", "M4A1-S", "AK-47", "AUG", "SG 553", "M249"]
     sec = ["SSG 08", "AWP", "SCAR-20", "G3SG1", "Nova", "XM1014", "MAG-7", "Sawed-Off"]
@@ -119,7 +122,7 @@ async def on_message(message):
     if message.author == client.user:
         return
     if message.content.startswith('!sync'):
-        await tree.sync(guild=discord.Object(id=784048138918166558))
+        await tree.sync(guild=discord.Object(id=guild_id))
         await message.channel.send('Syncing commands...')
 
 #Fires when bot is online
