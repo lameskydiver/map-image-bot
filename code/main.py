@@ -130,4 +130,4 @@ async def on_message(message):
 async def on_ready():
     print(f'We have logged in as {client.user}')
 
-client.run('')
+client.run('put your bot token here')
