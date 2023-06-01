@@ -44,7 +44,7 @@ def consolidateInvalidMapImg(data,csv_name):
         return old_data
     return new_data
 
-#Maps to avoid as their bsp cannot be found anywhere online
+#Maps to avoid as their bsp cannot be found anywhere online or crashes the game on load
 g_avoid = [ "zr_abandoned_hospital_csgo_v10"    ,
             "zr_devious_office_csgo_v16"        ,
             "ze_surgical_nightmare_v1_b2c"      ,
