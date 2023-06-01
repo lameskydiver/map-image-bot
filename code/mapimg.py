@@ -47,7 +47,9 @@ def consolidateInvalidMapImg(data,csv_name):
 #Maps to avoid as their bsp cannot be found anywhere online
 g_avoid = [ "zr_abandoned_hospital_csgo_v10"    ,
             "zr_devious_office_csgo_v16"        ,
-            "ze_surgical_nightmare_v1_b2c"      ]
+            "ze_surgical_nightmare_v1_b2c"      ,
+            "ze_100traps_v4_1_nc1"              ,
+            "ze_hive_complex_v1_2_1"      ]
 
 #Merge mapimg csv files for all tracked servers to determine prioritised list of missing map images
 async def analyseMapImg(interaction, data, csv_name):
