@@ -98,7 +98,7 @@ async def testMapImages(interaction, map_name):
             try:
                 #print(i)
                 files_q.append(discord.File(i,filename=map_name+str(it)+'.jpg'))
-                desc = "Now Playing: **"+map_name+str(it)+"**\nPlayers Online: **64/64**\nQuick Join: ** http://vauff.com/?ip=example.zombie.server:27040**"
+                desc = "Now Playing: **"+map_name+str(it)+"**\nPlayers Online: **64/64**\nQuick Join: ** [example.zombie.server:27040](http://vauff.com/?ip=example.zombie.server:27040)**"
                 rgb = colour.findAvgRGB(i,10)
                 embed = discord.Embed(description=desc,colour=discord.Colour.from_rgb(rgb[0],rgb[1],rgb[2]))
                 embed.set_thumbnail(url="attachment://"+map_name+str(it)+".jpg")
