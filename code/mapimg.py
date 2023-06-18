@@ -8,13 +8,13 @@ import colour
 from datetime import datetime
 
 #Record map tracking data from a given date and time input
-async def recordMapTrackEmbed(interaction, timestamp_start, timestamp_end, save_csv):
+async def recordMapTrackEmbed(interaction, channel, timestamp_start, timestamp_end):
     if(datetime.fromisoformat(timestamp_end+'+00:00') < datetime.fromisoformat(timestamp_start+'+00:00')):
-        await interaction.response.send_message("The ending timestamp ("+timestamp_end+") cannot be greater than the starting timestamp ("+timestamp_start+")")
+        await interaction.edit_original_response(content = "The ending timestamp (*"+timestamp_end+"*) cannot be earlier than the starting timestamp (*"+timestamp_start+"*)")
         return
-    await interaction.response.send_message("Working...")
+    #await interaction.response.send_message("Working...")
     data = []
-    async for message in interaction.channel.history(limit=None, before=datetime.fromisoformat(timestamp_end+'+00:00'), after=datetime.fromisoformat(timestamp_start+'+00:00')):
+    async for message in channel.history(limit=None, before=datetime.fromisoformat(timestamp_end+'+00:00'), after=datetime.fromisoformat(timestamp_start+'+00:00')):
         if(message.embeds):
             if(message.embeds[0].to_dict()['description'].find('Currently Playing')!=-1):
                 continue
@@ -25,11 +25,10 @@ async def recordMapTrackEmbed(interaction, timestamp_start, timestamp_end, save_
             map_data.append(desc.replace('\n',' '))
             data.append(map_data)
     if not (data):
-        await interaction.edit_original_response(content="No map tracks records has been found in between the given timestamps of "+timestamp_start+" and "+timestamp_end+". Make sure the timestamps is formatted for UTC+0.")
+        await interaction.channel.send(content="No map tracks records has been found in between the given timestamps of ***"+timestamp_start+"*** and ***"+timestamp_end+"*** for the server **"+channel.name+"**. Make sure the timestamps is formatted for UTC+0.")
     else:
-        await interaction.edit_original_response(content="In between the given timestamps of "+timestamp_start+" and "+timestamp_end+", there were "+str(len(data))+" valid map tracks.")
-    if(save_csv == 'y'):
-        csv_func.createCSV(interaction.channel.name,data,timestamp_start,timestamp_end,['%'+'url', 'timestamp', 'description'])
+        await interaction.channel.send(content="There were **"+str(len(data))+"** valid map tracks for the server **"+channel.name+"**.")
+    csv_func.createCSV(channel.name,data,timestamp_start,timestamp_end,['%'+'url', 'timestamp', 'description'])
 
 #Find map tracks with missing images
 def consolidateInvalidMapImg(data,csv_name):
