@@ -29,7 +29,7 @@ async def record(interaction, timestamp_start: str, timestamp_end: str, save_csv
 
 #Bot command to find map tracks with missing images
 @tree.command(name = "findinvalidmapimg", description = "With a given .csv name finds maps that do not have a valid map image", guild=discord.Object(id=guild_id))
-@app_commands.describe(csv_name="Name of the .csv file (type 'all' for all currently tracked servers in this discord)")
+@app_commands.describe(csv_name="Name of the server to search for")
 async def findinvalidmapimg(interaction, csv_name: str=None):
     if(interaction.channel.name != 'dev'):
         await interaction.response.send_message(content='Please use this command in the <#'+dev_channel_id+'> channel!')
