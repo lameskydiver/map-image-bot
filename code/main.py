@@ -23,9 +23,23 @@ dev_channel_id = 0  #id of a channel within your guild that is not used for map 
 @tree.command(name = "record", description = "Records maps played from a certain date and time", guild=discord.Object(id=guild_id))
 @app_commands.describe(timestamp_start="The starting date and time in form at of YYYY-MM-DD HH:MM (set at UTC+0)")
 @app_commands.describe(timestamp_end="The ending date and time in form at of YYYY-MM-DD HH:MM (set at UTC+0)")
-@app_commands.describe(save_csv="Save (or append) data to a csv file of the channel server name: y for yes n for no")
-async def record(interaction, timestamp_start: str, timestamp_end: str, save_csv: str):
-    await mapimg.recordMapTrackEmbed(interaction, timestamp_start, timestamp_end, save_csv)
+@app_commands.describe(csv_name="Name of the server to search for")
+async def record(interaction, timestamp_start: str, timestamp_end: str, csv_name: str=None):
+    if(interaction.channel.name != 'dev'):
+        await interaction.response.send_message(content='Please use this command in the <#1061776942631751701> channel!')
+        return
+    await interaction.response.send_message("Working to record map tracks from ***"+timestamp_start+"*** to ***"+timestamp_end+"***...")
+    if(csv_name==None):
+        for channel in interaction.channel.category.channels:
+            if(channel.name == 'dev'): continue
+            await mapimg.recordMapTrackEmbed(interaction, channel, timestamp_start, timestamp_end)
+    else:
+        channel = None
+        for channels in interaction.channel.category.channels:
+            if(channels.name == csv_name):
+                channel = channels
+                break
+        await mapimg.recordMapTrackEmbed(interaction, channel, timestamp_start, timestamp_end)
 
 #Bot command to find map tracks with missing images
 @tree.command(name = "findinvalidmapimg", description = "With a given .csv name finds maps that do not have a valid map image", guild=discord.Object(id=guild_id))
