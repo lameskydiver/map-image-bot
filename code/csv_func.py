@@ -5,13 +5,15 @@ csv.field_size_limit(100000000)
 
 #Create a dictionary for each map
 def createMapDict(map_name):
-    dictionary = {  "name": map_name,
-                    "timestamp":[],
-                    "duration":[],
-                    "players":[],
-                    "servercap":[],
-                    "score":0.0,
-                    "url":""}
+    dictionary = {
+        "name":         map_name,
+        "timestamp":    [],
+        "duration":     [],
+        "players":      [],
+        "servercap":    [],
+        "score":        0.0,
+        "url":          "",
+        "suffix":       []}
     return dictionary
 
 #Modify keyvalues within a dictionary with a provided input
