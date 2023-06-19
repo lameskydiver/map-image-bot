@@ -3,8 +3,6 @@ import csv_func
 import csv
 import conversions
 import formatting
-import os
-import colour
 from datetime import datetime
 
 #Record map tracking data from a given date and time input
