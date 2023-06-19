@@ -3,7 +3,6 @@ from discord import app_commands
 import serverstats
 import mapimg
 import formatting
-import typing
 import numpy as np
 
 """
