@@ -3,6 +3,7 @@ import csv_func
 import csv
 import conversions
 import formatting
+import suffix
 from datetime import datetime
 
 #Record map tracking data from a given date and time input
@@ -41,6 +42,30 @@ def consolidateInvalidMapImg(data,csv_name):
         return old_data
     return new_data
 
+def mergeDict(array, dict_add):
+    idx = [i for i,_ in enumerate(array) if _['name']==dict_add['name']][0]
+    for kv in dict_add:
+        if(kv == 'name' or kv == 'url' or kv == 'score'):
+            continue
+        elif (kv == 'suffix'):
+            if (dict_add['suffix'][0] not in array[idx]['suffix']):
+                array[idx]['suffix'].append(dict_add['suffix'][0])
+        else:
+            array[idx][kv].append(dict_add[kv][0])
+    return array
+
+def combineMaps(data):
+    consolidated = []
+    for i in range(len(data)):
+        name, suff = suffix.findSuffix(data[i]["name"][:3],data[i]["name"][3:])
+        data[i]['name'] = name
+        data[i]['suffix'].append(suff)
+        if name in [x['name'] for x in consolidated]:
+            mergeDict(consolidated, data[i])
+        else:
+            consolidated.append(data[i])
+    return consolidated
+
 #Maps to avoid as their bsp cannot be found anywhere online or crashes the game on load
 g_avoid = [ "zr_abandoned_hospital_csgo_v10"    ,
             "zr_devious_office_csgo_v16"        ,
@@ -50,6 +75,7 @@ g_avoid = [ "zr_abandoned_hospital_csgo_v10"    ,
 
 #Merge mapimg csv files for all tracked servers to determine prioritised list of missing map images
 async def analyseMapImg(interaction, data, csv_name):
+    data = combineMaps(data)
     for it, row in enumerate(data):
         data[it]["score"] = conversions.calculateScore(row)
     data.sort(key=lambda x: x["name"].lower())
