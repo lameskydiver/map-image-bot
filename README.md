@@ -8,4 +8,4 @@ Personal use discord bot to track map track discord embeds from [Maunz](https://
   - Also prints server specific statistics, such as average players, average duration of map played, number of sessions, and number of unique maps played.
   - Output csv is accompanied by raw data to reuse existing data.
 * Filter for embeds without valid embedded map image and create a prioritised list of maps that require a map image to be made.
-  - Maps in this list are also unbound to map versions; e.g. data *ze_map_v1* and *ze_map_v2* will be combined together into *ze_map* when calculating statistics.
+  - Maps in this list are also unbound to map versions; e.g. data from *ze_map_v1* and *ze_map_v2* will be combined together into *ze_map* when calculating statistics.
