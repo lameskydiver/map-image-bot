@@ -84,7 +84,7 @@ async def analyseMapImg(interaction, data, csv_name):
     data.sort(key=lambda x: x["score"], reverse=True)
     data = removeInvalidMaps(data)
     max_length = formatting.maxLength(data,["","name","avgplayers","duration","sessions","score"],['rank', 'name', 'avg players', 'tot playtime', 'num sessions', 'score'])
-    with open('mapimg_'+csv_name+'.csv', 'w', newline='') as temp:
+    with open('missingimg/mapimg_'+csv_name+'.csv', 'w', newline='') as temp:
         writer = csv.writer(temp)
         writer.writerow(formatting.fillBlank(['rank', 'name', 'avg players', 'tot playtime', 'num sessions', 'score'],max_length))
         for i, row in enumerate(data):

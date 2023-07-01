@@ -39,7 +39,7 @@ def findMapDictDuplicate(dictionary, name):
 
 #Creates csv file for a given server name
 def createCSV(name,data,timestamp_start,timestamp_end,header):
-    with open(name+'.csv', 'w', newline='') as file:
+    with open('csv/'+name+'.csv', 'w', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(['#'+timestamp_start,timestamp_end])
         writer.writerow(header)
@@ -53,7 +53,7 @@ def reformCsv(data, csv_name):
     zero_players = []
     invalid_playtime = []
     try:
-        with open(csv_name+'.csv', 'r', newline='') as file:
+        with open('csv/'+csv_name+'.csv', 'r', newline='') as file:
             data_row = []
             prev_timestamp = ''
             prev_playercount = -1

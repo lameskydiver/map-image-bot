@@ -21,7 +21,7 @@ async def calculateServerStat(interaction, server_name):
     data.sort(key=lambda x: x["name"].lower())
     data.sort(key=lambda x: x["score"], reverse=True)
     max_length = formatting.maxLength(data,["","name","avgplayers","duration","sessions","score"],['rank', 'name', 'avg players', 'tot playtime', 'num sessions', 'score'])
-    with open('serverstats_'+server_name+'.csv', 'w', newline='') as file:
+    with open('serverstats/serverstats_'+server_name+'.csv', 'w', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(['========================================'])
         writer.writerow(['Server statistics for '+server_name])
@@ -67,7 +67,7 @@ async def calculateServerMapStatLongestDuration(interaction, server_name):
     data = []
     start_record = False
     try:
-        with open('serverstats_'+server_name+'.csv', 'r', newline='') as file:
+        with open('serverstats/serverstats_'+server_name+'.csv', 'r', newline='') as file:
             reader = csv.reader(file)
             for row in reader:
                 if(row[0][0]!="#" and start_record == False):
@@ -103,7 +103,7 @@ async def calculateServerMapStatLongestDuration(interaction, server_name):
         map_embed.set_thumbnail(url=data[0]["url"])
         await interaction.edit_original_response(embed=map_embed)
         max_length = formatting.maxLength(data,["","name","avgplayers","duration","sessions"],['rank', 'name', 'avg players', 'tot playtime', 'num sessions'])
-        with open('serverstats_'+server_name+'_duration.csv', 'w', newline='') as file:
+        with open('serverstats/serverstats_'+server_name+'_duration.csv', 'w', newline='') as file:
             writer = csv.writer(file)
             writer.writerow(['========================================'])
             writer.writerow(['Server statistics for '+server_name+' by longest duration'])
@@ -130,7 +130,7 @@ async def calculateServerMapStatMostSessions(interaction, server_name):
     data = []
     start_record = False
     try:
-        with open('serverstats_'+server_name+'.csv', 'r', newline='') as file:
+        with open('serverstats/serverstats_'+server_name+'.csv', 'r', newline='') as file:
             reader = csv.reader(file)
             for row in reader:
                 if(row[0][0]!="#" and start_record == False):
@@ -166,7 +166,7 @@ async def calculateServerMapStatMostSessions(interaction, server_name):
         map_embed.set_thumbnail(url=data[0]["url"])
         await interaction.edit_original_response(embed=map_embed)
         max_length = formatting.maxLength(data,["","name","avgplayers","duration","sessions"],['rank', 'name', 'avg players', 'tot playtime', 'num sessions'])
-        with open('serverstats_'+server_name+'_sessions.csv', 'w', newline='') as file:
+        with open('serverstats/serverstats_'+server_name+'_sessions.csv', 'w', newline='') as file:
             writer = csv.writer(file)
             writer.writerow(['========================================'])
             writer.writerow(['Server statistics for '+server_name+' by most sessions'])
@@ -192,7 +192,7 @@ async def calculateServerMapStatMostSessions(interaction, server_name):
 async def calculateServerMapStat(interaction, server_name, map_name):
     data = []
     try:
-        with open('serverstats_'+server_name+'.csv', 'r', newline='') as file:
+        with open('serverstats/serverstats_'+server_name+'.csv', 'r', newline='') as file:
             start_record = False
             reader = csv.reader(file)
             temp = []
@@ -234,7 +234,7 @@ async def calculateServerMapStat(interaction, server_name, map_name):
     map_embed.set_thumbnail(url=data[0]["url"])
     await interaction.edit_original_response(embed=map_embed)
     max_length = formatting.maxLength(data,["timestamp","avgplayers","duration"],['timestamp', 'players', 'playtime'])
-    with open('serverstats_'+server_name+'_'+map_name+'.csv', 'w', newline='') as file:
+    with open('serverstats/serverstats_'+server_name+'_'+map_name+'.csv', 'w', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(['========================================'])
         writer.writerow(['Map statistics for '+map_name+' on '+server_name])
