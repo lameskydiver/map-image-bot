@@ -18,7 +18,6 @@ def findDefaultSuffix(ss):
 
 def testSuffix(ss):
     if(len(ss)==1):
-        print(ss)
         #Starting with CS2 all map names from maunz bot are small letters, so maps like s_a_m cannot be filtered as easily
         #leaving the capital letter check just in case capital letters do return on maunz bot
         if(isAlphabet(ss.lower()) and (isCapitalAlphabet(ss) or ss != 'p')):
@@ -44,7 +43,6 @@ def testSuffix(ss):
     return False
 
 def findSuffix(prefix,name):
-    print(prefix,name)
     underscores = name.count('_')
     if(underscores == 0):
         return prefix+name, ''
