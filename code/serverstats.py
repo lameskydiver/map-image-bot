@@ -48,7 +48,7 @@ async def calculateServerStat(interaction, server_name):
         if(i>9):
             break
         text = text + row["name"] + '\n'
-    if data[0]["url"].find('https://vauff.com/mapimgs/730/')!=-1:
+    if data[0]["url"].find('https://vauff.com/mapimgs/730_cs2/')!=-1:
         rgb = colour.findAvgRGB(data[0]["url"],10)
     else:
         rgb = [0,154,255]
@@ -90,7 +90,7 @@ async def calculateServerMapStatLongestDuration(interaction, server_name):
             if(i>9):
                 break
             text = text + row["name"] + '\n'
-        if data[0]["url"].find('https://vauff.com/mapimgs/730/')!=-1:
+        if data[0]["url"].find('https://vauff.com/mapimgs/730_cs2/')!=-1:
             rgb = colour.findAvgRGB(data[0]["url"],10)
         else:
             rgb = [0,154,255]
@@ -153,7 +153,7 @@ async def calculateServerMapStatMostSessions(interaction, server_name):
             if(i>9):
                 break
             text = text + row["name"] + '\n'
-        if data[0]["url"].find('https://vauff.com/mapimgs/730/')!=-1:
+        if data[0]["url"].find('https://vauff.com/mapimgs/730_cs2/')!=-1:
             rgb = colour.findAvgRGB(data[0]["url"],10)
         else:
             rgb = [0,154,255]
@@ -222,7 +222,7 @@ async def calculateServerMapStat(interaction, server_name, map_name):
     player_text = ''
     for i in range(len(data[0]["players"])):
         player_text += str(data[0]["players"][i])+'/'+str(data[0]["servercap"][i])+'\n'
-    if data[0]["url"].find('https://vauff.com/mapimgs/730/')!=-1:
+    if data[0]["url"].find('https://vauff.com/mapimgs/730_cs2/')!=-1:
         rgb = colour.findAvgRGB(data[0]["url"],10)
     else:
         rgb = [0,154,255]

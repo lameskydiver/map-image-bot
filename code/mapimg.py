@@ -38,7 +38,7 @@ def consolidateInvalidMapImg(data,csv_name):
     if (data==old_data or data==[]):
         print("ERROR: no data has been recorded on "+csv_name+"!")
         return old_data
-    new_data = [row for row in data if row["url"].find('https://vauff.com/mapimgs/730/')==-1]
+    new_data = [row for row in data if row["url"].find('https://vauff.com/mapimgs/730_cs2/')==-1]
     if (old_data==new_data):
         print("INFO: no (additional) missing map image has been recorded on "+csv_name+"!")
         return old_data
@@ -69,11 +69,8 @@ def combineMaps(data):
     return consolidated
 
 #Maps to avoid as their bsp cannot be found anywhere online or crashes the game on load
-g_avoid = [ "zr_abandoned_hospital_csgo_v10"    ,
-            "zr_devious_office_csgo_v16"        ,
-            "ze_surgical_nightmare_v1_b2c"      ,
-            "ze_100traps_v4_1_nc1"              ,
-            "ze_hive_complex_v1_2_1"      ]
+#Could be legacy in CS2
+g_avoid = []
 
 #Merge mapimg csv files for all tracked servers to determine prioritised list of missing map images
 async def analyseMapImg(interaction, data, csv_name):
