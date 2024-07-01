@@ -11,7 +11,7 @@ def findTimeDelta(init_timestamp, end_timestamp):
 
 #Calculates the percentage of players online versus total server capacity
 def serverPopPercentage(player_count,server_cap):
-    return float(player_count)/float(server_cap)
+    return float(player_count)/float(server_cap) if server_cap > 0 else 0
 
 #Determine map name and player count from a given string
 def yieldMapNameAndPlayerCount(string):
