@@ -235,7 +235,14 @@ async def calculateServerMapStat(interaction, server_name, map_name):
     map_embed.add_field(name='Players Online',value=player_text)
     map_embed.add_field(name='Total Duration (mins)',value=str(data[0]["duration"])[1:-1].replace(",","\n"))
     map_embed.set_thumbnail(url=data[0]["url"])
-    await interaction.edit_original_response(embed=map_embed)
+    while True:
+        for field in map_embed.fields:
+            if len(field.value) > 1024:
+                await interaction.edit_original_response(content="Skipping embed as the message is too long - check the saved .csv file!")
+                break
+        else:
+            await interaction.edit_original_response(embed=map_embed)
+        break
     max_length = formatting.maxLength(data,["timestamp","avgplayers","duration"],['timestamp', 'players', 'playtime'])
     with open('serverstats/serverstats_'+server_name+'_'+map_name+'.csv', 'w', newline='') as file:
         writer = csv.writer(file)
