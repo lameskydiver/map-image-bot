@@ -23,6 +23,7 @@ async def calculateServerStat(interaction, server_name):
     max_length = formatting.maxLength(data,["","name","avgplayers","duration","sessions","score"],['rank', 'name', 'avg players', 'tot playtime', 'num sessions', 'score'])
     with open('serverstats/serverstats_'+server_name+'.csv', 'w', newline='') as file:
         writer = csv.writer(file)
+        writer.writerow(['Server statistics made by lameskydiver/chinny'])
         writer.writerow(['========================================'])
         writer.writerow(['Server statistics for '+server_name])
         writer.writerow(['Data recorded from '+record_timestamps[0]+' (UTC+0) to '+record_timestamps[1]+' (UTC+0)'])
@@ -105,6 +106,7 @@ async def calculateServerMapStatLongestDuration(interaction, server_name):
         max_length = formatting.maxLength(data,["","name","avgplayers","duration","sessions"],['rank', 'name', 'avg players', 'tot playtime', 'num sessions'])
         with open('serverstats/serverstats_'+server_name+'_duration.csv', 'w', newline='') as file:
             writer = csv.writer(file)
+            writer.writerow(['Server statistics made by lameskydiver/chinny'])
             writer.writerow(['========================================'])
             writer.writerow(['Server statistics for '+server_name+' by longest duration'])
             writer.writerow(['Data recorded from '+record_timestamps[0]+' (UTC+0) to '+record_timestamps[1]+' (UTC+0)'])
@@ -168,6 +170,7 @@ async def calculateServerMapStatMostSessions(interaction, server_name):
         max_length = formatting.maxLength(data,["","name","avgplayers","duration","sessions"],['rank', 'name', 'avg players', 'tot playtime', 'num sessions'])
         with open('serverstats/serverstats_'+server_name+'_sessions.csv', 'w', newline='') as file:
             writer = csv.writer(file)
+            writer.writerow(['Server statistics made by lameskydiver/chinny'])
             writer.writerow(['========================================'])
             writer.writerow(['Server statistics for '+server_name+' by most sessions'])
             writer.writerow(['Data recorded from '+record_timestamps[0]+' (UTC+0) to '+record_timestamps[1]+' (UTC+0)'])
@@ -236,6 +239,7 @@ async def calculateServerMapStat(interaction, server_name, map_name):
     max_length = formatting.maxLength(data,["timestamp","avgplayers","duration"],['timestamp', 'players', 'playtime'])
     with open('serverstats/serverstats_'+server_name+'_'+map_name+'.csv', 'w', newline='') as file:
         writer = csv.writer(file)
+        writer.writerow(['Server statistics made by lameskydiver/chinny'])
         writer.writerow(['========================================'])
         writer.writerow(['Map statistics for '+map_name+' on '+server_name])
         writer.writerow(['Data recorded from '+record_timestamps[0]+' (UTC+0) to '+record_timestamps[1]+' (UTC+0)'])
